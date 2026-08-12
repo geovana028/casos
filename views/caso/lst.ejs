@@ -1,0 +1,36 @@
+<%- include('../cabecalho.ejs')%>
+    <h1>Casos</h1>
+    <div>
+        <form action="
+        " method="post">
+            <input type="text" name="filtro" id="" placeholder="digite o nome">
+            <button type="submit">Pesquisar</button>
+        </form>
+    </div>
+    <a href="/caso/add">+ Caso</a>
+    <table>
+        <tr>
+            <td>Descrição</td>
+            <td>Tipo do Crime</td>
+            <td>Local</td>
+            <td>Ações</td>
+        </tr>
+
+        <%for (const {descricao, tipodocrime, local} of Casos) {%>
+            <tr>
+                <td>
+                    <%=caso%>
+                </td>
+                <td>
+                    <%=tipodocrime%>
+                </td>
+                <td>
+                    <%=local%>
+                </td>
+                <td><a href="/caso/edt/<%=id%>">Editar</a>
+                    <a href="/caso/del/<%=id%>">Excluir</a>
+                </td>
+            </tr>
+            <%}%>
+    </table>
+    <%- include('../rodape.ejs')%>
