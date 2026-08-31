@@ -1,4 +1,4 @@
-<%-include('.. /cabecalho.ejs')%>
+<%- include('../cabecalho.ejs') %>
     <h1>Editar Caso</h1>
     <div>
         <a href="/caso/lst">Listar</a>
@@ -7,15 +7,15 @@
         <form method="post">
 
             <input type="hidden" name="id" value="<%=Caso.id%>"><br>
-            <label>Descrição:</label>
-            <input type="text" name="descricao" value="<%=Caso.descricao%>"><br>
-            <label>Tipo do Crime:</label>
-            <input type="text" name="tipodocrime" value="<%=Caso.tipodocrime%>"><br>
-            <label>Local:</label>
-            <input type="text" name="local" value="<%=Caso.local%>"><br>
+            <label>Descrição do Processo:</label>
+            <input type="text" name="descricaodoprocesso" value="<%=Caso.descricaodoprocesso%>"><br>
+            <label> Tipo do Produto</label>
+            <input type="text" name="tipodoproduto" value="<%=Caso.tipodoproduto%>"><br>
+
+
             <button type="submit">Cadastrar</button>
 
         </form>
     </div>
 
-    <%-include('.. /rodape.ejs')%>
+    <%- include('../rodape.ejs') %>

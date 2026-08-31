@@ -10,15 +10,15 @@ export default class CasoController{
             res.render(caminhoBase + "add")
         }
         this.add = async(req, res)=>{
-            //cria o Caso
-           
-            await Caso.create({
-                nome: req.body.nome,
-                tipodocrime: req.body.tipodocrime,
-                local: req.body.local
-            });
-            res.redirect('/'+caminhoBase + 'add');
-        }
+        //cria o Caso
+        await Caso.create({
+            descricaodoprocesso: req.body.descricaodoprocesso,
+            tipodoprocesso: req.body.tipodoprocesso, // Corrigido de tipodoproduto para tipodoprocesso
+            local: req.body.local,
+            foto: req.file ? req.file.buffer : null
+        });
+        res.redirect('/'+this.caminhoBase + 'lst');
+    }
         this.list = async(req, res)=>{
             const resultado = await Caso.find({})
             res.render(caminhoBase + 'lst', {Casos:resultado})

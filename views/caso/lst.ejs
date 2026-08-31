@@ -10,27 +10,32 @@
     <a href="/caso/add">+ Caso</a>
     <table>
         <tr>
-            <td>Descrição</td>
-            <td>Tipo do Crime</td>
-            <td>Local</td>
+            <td>Descrição do Processo</td>
+            <td>Tipo do Produto</td>
+            <td>Foto</td>
             <td>Ações</td>
         </tr>
 
-        <%for (const {descricao, tipodocrime, local} of Casos) {%>
+        <% for (const caso of Casos) { %>
             <tr>
                 <td>
-                    <%=caso%>
+                    <%= caso.descricaodoprocesso %>
                 </td>
                 <td>
-                    <%=tipodocrime%>
+                    <%= caso.tipodoprocesso %>
                 </td>
                 <td>
-                    <%=local%>
+                    <% if (caso.foto) { %>
+                        <img src="<%= caso.foto %>" alt="Foto" style="width: 100px; height: 100px; object-fit: cover;">
+                    <% } else { %>
+                        Sem foto
+                    <% } %>
                 </td>
-                <td><a href="/caso/edt/<%=id%>">Editar</a>
-                    <a href="/caso/del/<%=id%>">Excluir</a>
+                <td>
+                    <a href="/caso/edt/<%= caso.id %>">Editar</a>
+                    <a href="/caso/del/<%= caso.id %>">Excluir</a>
                 </td>
             </tr>
-            <%}%>
+            <% } %>
     </table>
     <%- include('../rodape.ejs')%>

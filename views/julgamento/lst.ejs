@@ -1,0 +1,34 @@
+<%- include('../cabecalho.ejs') %>
+    <h1>Julgamentos</h1>
+    <a href="/julgamento/add">+ Julgamento</a>
+    <table>
+        <tr>
+            <td>Empresa</td>
+            <td>Área</td>
+            <td>Ano Fundação</td>
+            <td>Data do Julgamento</td>
+            <td>Ações</td>
+        </tr>
+
+        <% for (const julgamento of julgamentos) { %>
+            <tr>
+                <td>
+                    <%= julgamento.nome %>
+                </td>
+                <td>
+                    <%= julgamento.area %>
+                </td>
+                <td>
+                    <%= julgamento.anofundacao %>
+                </td>
+                <td>
+                    <%= new Date(julgamento.datadojulgamento).toLocaleDateString('pt-BR') %>
+                </td>
+                <td>
+                    <a href="/julgamento/edit/<%= julgamento.id %>">Editar</a>
+                    <a href="/julgamento/delete/<%= julgamento.id %>">Excluir</a>
+                </td>
+            </tr>
+            <% } %>
+    </table>
+    <%- include('../rodape.ejs') %>

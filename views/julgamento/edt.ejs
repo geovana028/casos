@@ -1,0 +1,30 @@
+<%- include('../cabecalho.ejs') %>
+    <h1>Editar Julgamento</h1>
+    <div>
+        <a href="/julgamento/lst">Listar</a>
+    </div>
+    <div>
+        <form method="post" enctype="multipart/form-data">
+
+            <input type="hidden" name="id" value="<%=Julgamento.id%>"><br>
+            <label>Nome:</label>
+            <input type="text" name="nome" value="<%=Julgamento.nome%>"><br>
+            
+            <label>Área:</label>
+            <input type="text" name="area" value="<%=Julgamento.area%>"><br>
+            
+            <label>Ano Fundação:</label>
+            <input type="number" name="anofundacao" value="<%=Julgamento.anofundacao%>"><br>
+            
+            <label>Data do Julgamento:</label>
+            <input type="date" name="datadojulgamento" value="<%=Julgamento.datadojulgamento.toISOString().split('T')[0]%>"><br>
+            
+            <label for="foto">Foto:</label>
+            <input type="file" id="foto" name="foto"><br>
+            
+            <button type="submit">Salvar</button>
+
+        </form>
+    </div>
+
+    <%- include('../rodape.ejs') %>
