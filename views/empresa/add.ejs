@@ -1,20 +1,21 @@
 <%- include('../cabecalho.ejs') %>
-    <h1>Cadastrar Julgamento</h1>
+    <h1>Adicionar Empresa</h1>
     <div>
         <a href="/julgamento/lst">Listar</a>
     </div>
     <div>
         <form method="post">
-            <label>Nome:</label>
+            <label>Empresa:</label>
             <input type="text" name="nome"><br>
             <label>Área:</label>
             <input type="text" name="area"><br>
             <label>Ano de Fundação:</label>
-            <input type="number" name="anofundacao"><br>
-            <label>Data do Julgamento:</label>
-            <input type="date" name="datadojulgamento"><br>
-            <label>Valor da Indenização:</label>
-            <input type="number" step="0.01" min="0" name="valorindenizacao"><br>
+            <label>CPNJ:</label>
+            <input type="text" name="cnpj"><br>
+            <label>Logo ou Foto da Empresa:</label>
+            <input type="text" name="logo"><br>
+           
+            </select>
             <button type="submit">Cadastrar</button>
 
         </form>

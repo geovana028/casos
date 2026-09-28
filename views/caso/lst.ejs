@@ -1,41 +1,73 @@
 <%- include('../cabecalho.ejs')%>
-    <h1>Casos</h1>
-    <div>
-        <form action="
-        " method="post">
-            <input type="text" name="filtro" id="" placeholder="digite o nome">
-            <button type="submit">Pesquisar</button>
-        </form>
-    </div>
-    <a href="/caso/add">+ Caso</a>
-    <table>
-        <tr>
-            <td>Descrição do Processo</td>
-            <td>Tipo do Produto</td>
-            <td>Foto</td>
-            <td>Ações</td>
-        </tr>
 
-        <% for (const caso of Casos) { %>
-            <tr>
-                <td>
-                    <%= caso.descricaodoprocesso %>
-                </td>
-                <td>
-                    <%= caso.tipodoprocesso %>
-                </td>
-                <td>
-                    <% if (caso.foto) { %>
-                        <img src="<%= caso.foto %>" alt="Foto" style="width: 100px; height: 100px; object-fit: cover;">
-                    <% } else { %>
-                        Sem foto
-                    <% } %>
-                </td>
-                <td>
-                    <a href="/caso/edt/<%= caso.id %>">Editar</a>
-                    <a href="/caso/del/<%= caso.id %>">Excluir</a>
-                </td>
-            </tr>
+<h1>Casos</h1>
+
+<div>
+    <form action="/caso/lst" method="get">
+        <input 
+            type="text" 
+            name="filtro" 
+            placeholder="digite o nome" 
+            value="<%= typeof filtro !== 'undefined' ? filtro : '' %>"
+        >
+
+        <select name="tipodoprocesso" aria-label="Tipo do Produto">
+            <option value="">Tipo do Produto</option>
+            <% if (typeof Tipos !== 'undefined') { %>
+                <% for (const tipo of Tipos) { %>
+                    <option 
+                        value="<%= tipo %>"
+                        <%= (typeof tipoSelecionado !== 'undefined' && tipoSelecionado == tipo) ? 'selected' : '' %>
+                    >
+                        <%= tipo %>
+                    </option>
+                <% } %>
             <% } %>
-    </table>
-    <%- include('../rodape.ejs')%>
+        </select>
+
+        <button type="submit">Pesquisar</button>
+
+        <% if ((typeof filtro !== 'undefined' && filtro) || (typeof tipoSelecionado !== 'undefined' && tipoSelecionado)) { %>
+            <a href="/caso/lst">Limpar</a>
+        <% } %>
+    </form>
+</div>
+
+<a href="/caso/add">+ Caso</a>
+
+<table>
+    <tr>
+        <td>Descrição do Processo</td>
+        <td>Tipo do Produto</td>
+        <td>Marca</td>
+        <td>Foto</td>
+        <td>Ações</td>
+    </tr>
+
+    <% for (const caso of Casos) { %>
+        <tr>
+            <td>
+                <%= caso.descricaodoprocesso %>
+            </td>
+            <td>
+                <%= caso.tipodoprocesso %>
+            </td>
+            <td>
+                <%= caso.marca || 'Sem marca' %>
+            </td>
+            <td>
+                <% if (caso.foto) { %>
+                    <img src="<%= caso.foto %>" alt="Foto" style="width: 100px; height: 100px; object-fit: cover;">
+                <% } else { %>
+                    Sem foto
+                <% } %>
+            </td>
+            <td>
+                <a href="/caso/edt/<%= caso._id %>">Editar</a>
+                <a href="/caso/del/<%= caso._id %>">Excluir</a>
+            </td>
+        </tr>
+    <% } %>
+</table>
+
+<%- include('../rodape.ejs')%>

@@ -4,23 +4,19 @@
         <a href="/julgamento/lst">Listar</a>
     </div>
     <div>
-        <form method="post" enctype="multipart/form-data">
+        <form method="post">
 
             <input type="hidden" name="id" value="<%=Julgamento.id%>"><br>
             <label>Nome:</label>
             <input type="text" name="nome" value="<%=Julgamento.nome%>"><br>
-            
             <label>Área:</label>
             <input type="text" name="area" value="<%=Julgamento.area%>"><br>
-            
-            <label>Ano Fundação:</label>
+            <label>Ano de Fundação:</label>
             <input type="number" name="anofundacao" value="<%=Julgamento.anofundacao%>"><br>
-            
             <label>Data do Julgamento:</label>
-            <input type="date" name="datadojulgamento" value="<%=Julgamento.datadojulgamento.toISOString().split('T')[0]%>"><br>
-            
-            <label for="foto">Foto:</label>
-            <input type="file" id="foto" name="foto"><br>
+            <input type="date" name="datadojulgamento" value="<%= new Date(Julgamento.datadojulgamento).toISOString().slice(0, 10) %>"><br>
+            <label>Valor da Indenização:</label>
+            <input type="number" step="0.01" min="0" name="valorindenizacao" value="<%=Julgamento.valorindenizacao ?? 0%>"><br>
             
             <button type="submit">Salvar</button>
 

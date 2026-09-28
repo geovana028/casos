@@ -1,21 +1,25 @@
 <%- include('../cabecalho.ejs') %>
-    <h1>Editar Caso</h1>
-    <div>
-        <a href="/caso/lst">Listar</a>
-    </div>
-    <div>
-        <form method="post">
+<h1>Editar Caso</h1>
+<div>
+    <a href="/caso/lst">Listar</a>
+</div>
+<div>
+    <form method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="<%= Caso && Caso._id ? Caso._id : '' %>"><br>
 
-            <input type="hidden" name="id" value="<%=Caso.id%>"><br>
-            <label>Descrição do Processo:</label>
-            <input type="text" name="descricaodoprocesso" value="<%=Caso.descricaodoprocesso%>"><br>
-            <label> Tipo do Produto</label>
-            <input type="text" name="tipodoproduto" value="<%=Caso.tipodoproduto%>"><br>
+        <label>Descrição do Processo:</label>
+        <input type="text" name="descricaodoprocesso" value="<%= Caso ? Caso.descricaodoprocesso : '' %>"><br>
 
+        <label>Tipo do Processo:</label>
+        <input type="text" name="tipodoprocesso" value="<%= Caso ? Caso.tipodoprocesso : '' %>"><br>
 
-            <button type="submit">Cadastrar</button>
+        <label>Marca:</label>
+        <input type="text" name="marca" value="<%= Caso ? Caso.marca : '' %>"><br>
 
-        </form>
-    </div>
+        <label>Foto:</label>
+        <input type="file" name="foto"><br>
 
-    <%- include('../rodape.ejs') %>
+        <button type="submit">Salvar</button>
+    </form>
+</div>
+<%- include('../rodape.ejs') %>

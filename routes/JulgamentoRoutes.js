@@ -11,9 +11,9 @@ const caminhobase = 'julgamento/'
 const upload = multer({ storage: multer.memoryStorage() });
 
 router.get('/' + caminhobase + 'add', controle.openAdd)
-router.post('/' + caminhobase + 'add', upload.single('foto'), controle.add)
+router.post('/' + caminhobase + 'add', controle.add)
 router.get('/' + caminhobase + 'lst', controle.list)
 router.get('/' + caminhobase + 'edit/:id', controle.openEdt)
-router.post('/' + caminhobase + 'edit/:id', upload.single('foto'), controle.edt)
+router.post('/' + caminhobase + 'edit/:id', controle.edt)
 router.get('/' + caminhobase + 'delete/:id', controle.del)
 export default router

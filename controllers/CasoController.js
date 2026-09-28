@@ -1,60 +1,100 @@
-//importar o Model
 import Caso from '../models/caso.js'
+import Empresa from '../models/empresa.js'
 
-export default class CasoController{
+export default class CasoController {
 
-    constructor(caminhoBase='caso/'){
-        this.caminhoBase = caminhoBase
-    
-        this.openAdd = async(req, res)=>{
-            res.render(caminhoBase + "add")
-        }
-        this.add = async(req, res)=>{
-        //cria o Caso
-        await Caso.create({
-            descricaodoprocesso: req.body.descricaodoprocesso,
-            tipodoprocesso: req.body.tipodoprocesso, // Corrigido de tipodoproduto para tipodoprocesso
-            local: req.body.local,
-            foto: req.file ? req.file.buffer : null
-        });
-        res.redirect('/'+this.caminhoBase + 'lst');
-    }
-        this.list = async(req, res)=>{
-            const resultado = await Caso.find({})
-            res.render(caminhoBase + 'lst', {Casos:resultado})
-        }
-        this.find = async(req, res)=>{
-            const filtro = req.body.filtro;
-            const resultado = await 
-            Caso.find({ nome: { $regex: filtro,
-                $options: "i" }})
-            res.render(caminhoBase + 'lst', {Casos:resultado})
+    constructor(caminhoBase = 'caso/') {
+        this.caminhoBase = caminhoBase;
+
+        this.openAdd = async (req, res) => {
+            const empresas = await Empresa.find({});
+            res.render(this.caminhoBase + "add", { Empresas: empresas });
         }
 
-     
-
-         this.openEdt = async(req, res)=>{
-            //passar quem eu quero editar
-            const id = req.params.id
-            console.log(id)
-            const caso = await Caso.findById(id) 
-            console.log(caso)
-            res.render(caminhoBase + "edt", 
-                {Caso:caso})
+        this.add = async (req, res) => {
+            await Caso.create({
+                descricaodoprocesso: req.body.descricaodoprocesso,
+                tipodoprocesso: req.body.tipodoprocesso,
+                marca: req.body.marca,
+                foto: req.file ? req.file.buffer : null
+            });
+            res.redirect('/' + this.caminhoBase + 'lst');
         }
 
+        this.list = async (req, res) => {
+            const payload = req?.body ?? req?.query ?? {};
+            const filtro = payload.filtro ?? '';
+            const tipoSelecionado = payload.tipodoprocesso ?? '';
+            
+            let query = {};
 
-        this.edt = async(req, res)=>{
-        await Caso.findByIdAndUpdate(req.params.id, req.body)
-        res.redirect('/'+caminhoBase + 'lst');
-        
+            if (tipoSelecionado) {
+                query.tipodoprocesso = tipoSelecionado;
+            }
+
+            if (filtro) {
+                query.descricaodoprocesso = { $regex: filtro, $options: "i" };
+            }
+
+            const resultado = await Caso.find(query);
+            const tipos = await Caso.distinct('tipodoprocesso');
+            
+            res.render(this.caminhoBase + 'lst', { 
+                Casos: resultado, 
+                Tipos: tipos, 
+                filtro: filtro, 
+                tipoSelecionado: tipoSelecionado 
+            });
         }
 
-         this.del = async(req, res)=>{
-        await Caso.findByIdAndDelete(req.params.id)
-        res.redirect('/'+caminhoBase + 'lst');
-        
+        this.find = async (req, res) => {
+            const payload = req?.body ?? req?.query ?? {};
+            const filtro = payload.filtro ?? '';
+            const tipoSelecionado = payload.tipodoprocesso ?? '';
+
+            let query = {};
+
+            if (tipoSelecionado) {
+                query.tipodoprocesso = tipoSelecionado;
+            }
+
+            if (filtro) {
+                query.descricaodoprocesso = { $regex: filtro, $options: "i" };
+            }
+
+            const resultado = await Caso.find(query);
+            const tipos = await Caso.distinct('tipodoprocesso');
+
+            res.render(this.caminhoBase + 'lst', {
+                Casos: resultado,
+                Tipos: tipos,
+                filtro: filtro,
+                tipoSelecionado: tipoSelecionado
+            });
         }
 
+        this.openEdt = async (req, res) => {
+            const id = req.params.id;
+            const resultado = await Caso.findById(id);
+            const jempresas = await Empresa.find({});
+            res.render(this.caminhoBase + "edt", { Caso: resultado, Empresas: jempresas });
+        }
+
+        this.edt = async (req, res) => {
+            const dadosAtualizados = {
+                descricaodoprocesso: req.body.descricaodoprocesso,
+                tipodoprocesso: req.body.tipodoprocesso,
+                marca: req.body.marca,
+                ...(req.file ? { foto: req.file.buffer } : {})
+            };
+
+            await Caso.findByIdAndUpdate(req.params.id, dadosAtualizados);
+            res.redirect('/' + this.caminhoBase + 'lst');
+        }
+
+        this.del = async (req, res) => {
+            await Caso.findByIdAndDelete(req.params.id);
+            res.redirect('/' + this.caminhoBase + 'lst');
+        }
     }
 }

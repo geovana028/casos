@@ -1,0 +1,44 @@
+<%- include('../cabecalho.ejs')%>
+    <h1>Empresas</h1>
+    <div>
+        <form action="
+        " method="post">
+            <input type="text" name="filtro" id="" placeholder="digite o nome">
+            <button type="submit">Pesquisar</button>
+        </form>
+    </div>
+    <a href="/empresa/add">+ Empresa</a>
+    <table>
+        <tr>
+            <td>Nome</td>
+            <td>Área</td>
+            <td>Foto</td>
+            <td>Ano de Fundação</td>
+            <td>CNPJ</td>
+            <td>Logo ou Foto da Empresa</td>
+            <td>Ações</td>
+        </tr>
+
+        <% for (const caso of empresas) { %>
+            <tr>
+                <td>
+                    <%= caso.nome %>
+                </td>
+                <td>
+                    <%= caso.area %>
+                </td>
+                <td>
+                    <% if (caso.logo) { %>
+                        <img src="<%= caso.logo %>" alt="Logo" style="width: 100px; height: 100px; object-fit: cover;">
+                    <% } else { %>
+                        Sem logo
+                    <% } %>
+                </td>
+                <td>
+                    <a href="/empresa/edt/<%= caso.id %>">Editar</a>
+                    <a href="/empresa/del/<%= caso.id %>">Excluir</a>
+                </td>
+            </tr>
+            <% } %>
+    </table>
+    <%- include('../rodape.ejs')%>

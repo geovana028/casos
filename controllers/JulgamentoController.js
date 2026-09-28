@@ -10,15 +10,14 @@ export default class JulgamentoController{
             res.render(caminhoBase + "add")
         }
      this.add = async(req, res)=>{
-        //cria o Julgamento
         await Julgamento.create({
             nome: req.body.nome,
-            area: req.body.area,
-            anofundacao: req.body.anofundacao ?? req.body.ano,
+            area: req.body.area ?? 'Não informado',
+            anofundacao: Number(req.body.anofundacao ?? req.body.ano ?? 0),
             datadojulgamento: req.body.datadojulgamento ?? req.body.data,
-            foto: req.file ? req.file.buffer : null
+            valorindenizacao: Number(req.body.valorindenizacao ?? 0)
         });
-        res.redirect('/'+caminhoBase + 'lst');
+        res.redirect('/'+this.caminhoBase + 'lst');
     }
         this.list = async(req, res)=>{
             const resultado = await Julgamento.find({})
@@ -35,10 +34,10 @@ export default class JulgamentoController{
     edt = async(req, res)=>{
         await Julgamento.findByIdAndUpdate(req.params.id, {
             nome: req.body.nome,
-            area: req.body.area,
-            anofundacao: req.body.anofundacao ?? req.body.ano,
+            area: req.body.area ?? 'Não informado',
+            anofundacao: Number(req.body.anofundacao ?? req.body.ano ?? 0),
             datadojulgamento: req.body.datadojulgamento ?? req.body.data,
-            foto: req.file ? req.file.buffer : undefined
+            valorindenizacao: Number(req.body.valorindenizacao ?? 0)
         })
         res.redirect('/' + this.caminhoBase + 'lst')
     }

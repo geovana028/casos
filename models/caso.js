@@ -3,7 +3,7 @@ import conexao from '../config/conexao.js'
 const Caso = conexao.Schema({
     descricaodoprocesso: {type:String, required:true},
     tipodoprocesso: {type:String, required:true},
-    local: {type:String},
+    marca: {type:String},
     foto: {
         type: Buffer,
         get: (valor) => {
