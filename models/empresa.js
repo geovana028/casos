@@ -3,8 +3,8 @@ import conexao from '../config/conexao.js'
 const Empresa = conexao.Schema({
     nome: {type:String, required:true},
     area: {type:String, required:true},
-    anofundacao: {type:Number, required:true},
-    datadojulgamento: {type:Date, required:true},
+    anofundacao: {type:Date, required:true},
+    cnpj: {type:String, default:'Não informado'},
     foto: {
         type: Buffer,
         get: (valor) => {

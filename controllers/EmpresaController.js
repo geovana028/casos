@@ -15,7 +15,7 @@ export default class EmpresaController {
             nome: req.body.nome,
             area: req.body.area,
             anofundacao: req.body.anofundacao ?? req.body.ano,
-            datadojulgamento: req.body.datadojulgamento ?? req.body.data,
+            cnpj: req.body.cnpj?.trim() || 'Não informado',
             foto: req.file ? req.file.buffer : null
         });
         res.redirect('/' + this.caminhoBase + 'lst');
@@ -45,7 +45,7 @@ export default class EmpresaController {
             nome: req.body.nome,
             area: req.body.area,
             anofundacao: req.body.anofundacao ?? req.body.ano,
-            datadojulgamento: req.body.datadojulgamento ?? req.body.data,
+            cnpj: req.body.cnpj?.trim() || 'Não informado',
             foto: req.file ? req.file.buffer : undefined
         });
         res.redirect('/' + this.caminhoBase + 'lst');

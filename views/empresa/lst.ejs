@@ -12,10 +12,9 @@
         <tr>
             <td>Nome</td>
             <td>Área</td>
-            <td>Foto</td>
-            <td>Ano de Fundação</td>
+            <td>Data de Fundação</td>
             <td>CNPJ</td>
-            <td>Logo ou Foto da Empresa</td>
+            <td>Foto</td>
             <td>Ações</td>
         </tr>
 
@@ -28,8 +27,14 @@
                     <%= caso.area %>
                 </td>
                 <td>
-                    <% if (caso.logo) { %>
-                        <img src="<%= caso.logo %>" alt="Logo" style="width: 100px; height: 100px; object-fit: cover;">
+                    <%= new Date(caso.anofundacao).toLocaleDateString('pt-BR') %>
+                </td>
+                <td>
+                    <%= caso.cnpj %>
+                </td>
+                <td>
+                    <% if (caso.foto) { %>
+                        <img src="<%= caso.foto %>" alt="Logo" style="width: 100px; height: 100px; object-fit: cover;">
                     <% } else { %>
                         Sem logo
                     <% } %>
